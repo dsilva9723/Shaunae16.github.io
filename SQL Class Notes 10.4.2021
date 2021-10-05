@@ -1,0 +1,68 @@
+SELECT max(duration), min(duration), 
+round(avg(duration), 3) 
+from flights
+;
+SELECT count(*) from flights 
+
+SELECT * from flights
+ORDER by duration DESC
+
+Select * FROM flights
+where duration IN (Select max(duration) from flights )  
+
+Select * from flights
+ORDER by duration DESC limit 3 
+
+Select origin,count(*) as OriginCount from flights
+Group by origin
+
+Select destination, count(*) as ArrivalFlightCount from flights
+Group by destination
+
+Select origin, destination, count(*) as SameOriginAndDestination from flights
+Group by origin, destination
+INSERT INTO flights (origin, destination, duration)
+VALUES ("DFW", "ORD", 120)
+
+SELECT *,
+	(case
+	when duration > 180 then 3
+	when duration < 60 then  1
+	when duration = 0 then -1
+	else 2 end) as Breakpoint60_180  
+from flights
+
+Select 
+	F.Breakpoint60_180, 
+count(F.id)
+from flights S left join (SELECT *,
+	(case
+	when duration > 180 then 3
+	when duration < 60 then  1
+	when duration = 0 then -1
+	else 2 end) as Breakpoint60_180  
+from flights) F on F.id = S.id
+GROUP by F.Breakpoint60_180
+
+SELECT a.faa,S.origin, count(*) as CountPerAirport, sum(F.gtr180) as DuraCount 
+from flights S
+left join (Select *, case when duration > 180 then 1 else 0 end as gtr180 
+from flights) F on F.ID = S.ID 
+join airports a on a.faa = S.origin 
+Group by S.origin
+
+Select a.faa,S.origin, count(S.origin) as CountPerAirport, 
+case when sum(F.gtr180) IS NULL then 0 else sum(F.gtr180) end as  DuraCount  
+from airports a
+left join flights S on S.origin = a.faa
+left join (Select *, case when duration > 180 then 1 else 0 end as gtr180 
+from flights) F on F.ID = S.ID 
+Group by a.faa
+ORDER by CountPerAirport DESC
+
+
+
+
+
+SELECT *, count(*) as DepartureFlightCount, from flights
+GROUP by origin
