@@ -7,8 +7,8 @@ namespace FAQs.Models
 {
     public class FAQCategory
     {
-        public string CategoryId { get; set; }
+        public string? CategoryId { get; set; }
 
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
     }
 }
