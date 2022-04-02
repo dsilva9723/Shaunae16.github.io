@@ -10,16 +10,16 @@ namespace FAQs.Models
         // EF will instruct the database to automatically generate this value
         public int QuestionId { get; set; }
 
-        public string CategoryId { get; set; } //foreign key 
+        public string? CategoryId { get; set; } //foreign key 
 
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
 
-        public string TopicId { get; set; } //foreign key
+        public string? TopicId { get; set; } //foreign key
 
-        public string TopicName { get; set; }
+        public string? TopicName { get; set; }
 
-        public string Question { get; set; }
+        public string? Question { get; set; }
 
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
     }
 }
