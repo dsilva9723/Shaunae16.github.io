@@ -24,6 +24,11 @@ namespace FAQs
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
+            services.AddRouting(options => {
+                options.LowercaseUrls = true;
+                options.AppendTrailingSlash = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
