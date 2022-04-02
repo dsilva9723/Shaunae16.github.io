@@ -11,27 +11,15 @@ namespace FAQs.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private FAQContext context { get;set }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(FAQContext ftx)
         {
-            _logger = logger;
+            context = ftx;
         }
-
-        public IActionResult Index()
+    public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var faqs = context.FAQ.OrderBy(f => f.Question).ToList();
+            return base.View(faqs);
         }
     }
-}
